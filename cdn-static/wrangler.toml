@@ -4,10 +4,6 @@ compatibility_date = "2025-06-15"
 # Specify the directory containing static files for Pages
 pages_build_output_dir = "."
 
-[build]
-# No build command needed for static files
-command = ""
-
 # Environment variables (if needed)
 [vars]
 # Add any environment variables here 
