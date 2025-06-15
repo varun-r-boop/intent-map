@@ -1,0 +1,21 @@
+name = "intent-map"
+compatibility_date = "2025-06-15"
+
+[assets]
+directory = "."
+# This tells Wrangler to serve static files from the current directory (cdn-static)
+
+# Optional: Custom routing rules
+[[assets.bindings]]
+binding = "ASSETS"
+
+[build]
+# No build command needed for static files
+command = ""
+
+[env.production]
+name = "intent-map"
+
+# Security headers via wrangler.toml
+[env.production.vars]
+# You can add environment variables here if needed 
