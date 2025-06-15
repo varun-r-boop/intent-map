@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intent Map CDN</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .code-block {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+        }
+        .section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #007acc;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        .button:hover {
+            background: #005c99;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .endpoint {
+            background: #f9f9f9;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">📊</div>
+        <h1>Intent Map CDN</h1>
+        <p>User behavior analytics and heatmap tracking</p>
+    </div>
+
+    <div class="section">
+        <h2>🚀 Quick Start</h2>
+        <p>Add this script to your website's <code>&lt;head&gt;</code> section:</p>
+        
+        <div class="code-block">
+            <pre><code>&lt;script&gt;
+window.IntentMapConfig = {
+    apiEndpoint: 'https://your-api-server.com/api',
+    trackingEnabled: true,
+    trackClicks: true,
+    trackScrolls: true,
+    trackMousemove: false,
+    debug: false
+};
+&lt;/script&gt;
+&lt;script src="<span id="cdn-url">https://your-cdn-url.com</span>/client-snippet/index.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+        
+        <button class="button" onclick="copyToClipboard()">📋 Copy Code</button>
+        <button class="button" onclick="updateWithCurrentURL()">🔗 Use This CDN URL</button>
+    </div>
+
+    <div class="section">
+        <h2>📁 Available Scripts</h2>
+        <div class="grid">
+            <div>
+                <h3>Tracking Script</h3>
+                <div class="endpoint">/client-snippet/index.js</div>
+                <p>Main tracking script for capturing user interactions</p>
+                <a href="./client-snippet/index.js" class="button">View Script</a>
+            </div>
+            <div>
+                <h3>Heatmap Overlay</h3>
+                <div class="endpoint">/heatmap-overlay/overlay.js</div>
+                <p>Interactive heatmap overlay for visualizing data</p>
+                <a href="./heatmap-overlay/overlay.js" class="button">View Script</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔧 Configuration Options</h2>
+        <div class="code-block">
+            <pre><code>window.IntentMapConfig = {
+    // API Configuration
+    apiEndpoint: 'https://your-api-server.com/api',
+    
+    // Tracking Options
+    trackingEnabled: true,      // Master switch
+    trackClicks: true,          // Track mouse clicks
+    trackScrolls: true,         // Track scroll events
+    trackMousemove: false,      // Track mouse movement (high volume)
+    
+    // Performance Settings
+    batchSize: 10,              // Events per batch
+    flushInterval: 5000,        // Send interval (ms)
+    
+    // Development
+    debug: false,               // Console logging
+    autoInit: true              // Auto-start tracking
+};</code></pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔥 Heatmap Bookmarklet</h2>
+        <p>Drag this link to your bookmarks bar to overlay heatmaps on any page:</p>
+        <div class="code-block">
+            <pre id="bookmarklet-code">javascript:(function(){var script = document.createElement('script');script.src = '<span id="overlay-url">https://your-cdn-url.com</span>/heatmap-overlay/overlay.js';script.setAttribute('data-auto-init', 'true');document.head.appendChild(script);})();</pre>
+        </div>
+        <a href="#" id="bookmarklet-link" class="button">🔥 Intent Map Overlay</a>
+        <button class="button" onclick="copyBookmarklet()">📋 Copy Bookmarklet</button>
+    </div>
+
+    <div class="section">
+        <h2>📊 What Gets Tracked</h2>
+        <ul>
+            <li><strong>Click Events:</strong> Mouse click coordinates and target elements</li>
+            <li><strong>Scroll Events:</strong> Scroll positions and depth percentages</li>
+            <li><strong>Page Views:</strong> Page URLs and pathnames</li>
+            <li><strong>Sessions:</strong> Client-generated session IDs</li>
+            <li><strong>Viewport:</strong> Screen dimensions and viewport size</li>
+            <li><strong>Timestamps:</strong> Event timing information</li>
+        </ul>
+        <p><em>No personally identifiable information (PII) is collected by default.</em></p>
+    </div>
+
+    <script>
+        // Update URLs with current domain
+        function updateWithCurrentURL() {
+            const currentURL = window.location.origin;
+            document.getElementById('cdn-url').textContent = currentURL;
+            document.getElementById('overlay-url').textContent = currentURL;
+            
+            // Update bookmarklet
+            const bookmarkletCode = `javascript:(function(){var script = document.createElement('script');script.src = '${currentURL}/heatmap-overlay/overlay.js';script.setAttribute('data-auto-init', 'true');document.head.appendChild(script);})();`;
+            document.getElementById('bookmarklet-code').innerHTML = bookmarkletCode;
+            document.getElementById('bookmarklet-link').href = bookmarkletCode;
+        }
+
+        function copyToClipboard() {
+            const code = `<script>
+window.IntentMapConfig = {
+    apiEndpoint: 'https://your-api-server.com/api',
+    trackingEnabled: true,
+    trackClicks: true,
+    trackScrolls: true,
+    trackMousemove: false,
+    debug: false
+};
+</script>
+<script src="${document.getElementById('cdn-url').textContent}/client-snippet/index.js"></script>`;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                alert('📋 Tracking code copied to clipboard!');
+            });
+        }
+
+        function copyBookmarklet() {
+            const code = document.getElementById('bookmarklet-code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('📋 Bookmarklet copied to clipboard!');
+            });
+        }
+
+        // Auto-update URLs on page load
+        updateWithCurrentURL();
+    </script>
+</body>
+</html> 
