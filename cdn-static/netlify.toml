@@ -1,0 +1,43 @@
+[build]
+  # This is a static site, no build process needed
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Headers for CORS and caching
+[[headers]]
+  for = "/client-snippet/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, HEAD, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/heatmap-overlay/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, HEAD, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Redirects for SPA-like behavior
+[[redirects]]
+  from = "/docs"
+  to = "/"
+  status = 302
+
+# Content type settings
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8" 
