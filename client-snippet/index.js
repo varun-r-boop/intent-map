@@ -6,15 +6,16 @@
     
     // Configuration - can be overridden by setting window.IntentMapConfig before loading this script
     const CONFIG = {
-        apiEndpoint: window.IntentMapConfig?.apiEndpoint || 'https://9b55-2405-201-e016-e800-d114-5d21-766-65cb.ngrok-free.app/api',
+        apiEndpoint: window.IntentMapConfig?.apiEndpoint || 'http://localhost:3000/api',
         trackingEnabled: window.IntentMapConfig?.trackingEnabled !== false,
-        batchSize: window.IntentMapConfig?.batchSize || 10,
-        flushInterval: window.IntentMapConfig?.flushInterval || 5000,
+        batchSize: window.IntentMapConfig?.batchSize || 25, // Larger batches = fewer requests
+        flushInterval: window.IntentMapConfig?.flushInterval || 15000, // 15 seconds = less frequent
         trackClicks: window.IntentMapConfig?.trackClicks !== false,
         trackScrolls: window.IntentMapConfig?.trackScrolls !== false,
         trackMousemove: window.IntentMapConfig?.trackMousemove || false,
-        throttleMousemove: window.IntentMapConfig?.throttleMousemove || 0.05,
-        debug: window.IntentMapConfig?.debug || false
+        throttleMousemove: window.IntentMapConfig?.throttleMousemove || 0.01, // More aggressive throttling
+        debug: window.IntentMapConfig?.debug || false,
+        scrollThrottle: window.IntentMapConfig?.scrollThrottle || 1000 // 1 second scroll throttle
     };
     
     // Global state
@@ -242,7 +243,7 @@
             let scrollTimeout;
             window.addEventListener('scroll', () => {
                 clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(handleScroll, 100);
+                scrollTimeout = setTimeout(handleScroll, CONFIG.scrollThrottle);
             }, { passive: true });
         }
         
